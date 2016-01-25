@@ -15,6 +15,7 @@ public class InsertForm extends javax.swing.JFrame {
         this.setBounds(100, 100, 1000, 1000);
         
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         categoryJCB.removeAllItems();
         categoryJCB.addItem("Κλειδιά");
