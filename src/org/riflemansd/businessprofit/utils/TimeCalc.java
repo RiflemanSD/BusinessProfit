@@ -1,4 +1,4 @@
-package org.riflemansd.businessprofit2.db;
+package org.riflemansd.businessprofit.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

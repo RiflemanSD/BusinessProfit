@@ -1,0 +1,14 @@
+License for BusinessProfit
+
+This file is part of BusinessProfit.
+
+BusinessProfit can not be copied and/or distributed without the express
+permission of Sotiris Doudis
+
+Copyright © 2016 Sotiris Doudis | All rights reserved
+
+27-1-2016 Sotiris Doudis sotirisdoudis@gmail.com
+RiflemanSD - github - riflemansd@gmail.com
+
+@author
+@version
