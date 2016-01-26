@@ -19,6 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private InsertForm insertForm;
     private GUIDataTest guiDataTest;
+    private CreateCategory createCategoryPanel;
     
     /**
      * Creates new form MainFrame
@@ -84,6 +85,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Create Cat...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Create Category:");
@@ -197,6 +203,11 @@ public class MainFrame extends javax.swing.JFrame {
         guiDataTest = new GUIDataTest();
         guiDataTest.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        createCategoryPanel = new CreateCategory();
+        createCategoryPanel.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
