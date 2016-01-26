@@ -1,5 +1,5 @@
 
-package org.riflemansd.businessprofit;
+package org.riflemansd.businessprofit.main;
 
 /**
  *

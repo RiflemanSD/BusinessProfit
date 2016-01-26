@@ -10,8 +10,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-import org.riflemansd.businessprofit.GUIDataTest;
-import org.riflemansd.businessprofit.InsertForm;
 
 /**
  *

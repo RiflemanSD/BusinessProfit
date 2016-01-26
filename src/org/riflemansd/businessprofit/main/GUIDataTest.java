@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.riflemansd.businessprofit;
+package org.riflemansd.businessprofit.main;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;

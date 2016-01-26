@@ -1,8 +1,9 @@
 
-package org.riflemansd.businessprofit;
+package org.riflemansd.businessprofit.main;
 
 import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
+import org.riflemansd.businessprofit.MyItemListener;
 
 /**
  *
