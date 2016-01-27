@@ -33,6 +33,9 @@ public class InOutDB {
     public void saveCategory(Category cat) {
         manager.insert("category", "name", cat.getName());
     }
+    public void saveCategory(String cat) {
+        manager.insert("category", "name", cat);
+    }
     public String getCategorys() {
         String result = manager.select("category", "*", "", 2);
         
@@ -68,6 +71,7 @@ public class InOutDB {
     public void savePackIn(PackagesIncome pack) {
         manager.insert("packageincome", "catid,value,info,paradoseis,paralabes,time", pack.getCategory().getId(), pack.getValue(), pack.getInfo(), pack.getParadoseis(), pack.getParalabes(),currentTime());
     }
+    
     public String getPackIn() {
         String result = manager.select("packageincome", "*", "", 7);
         

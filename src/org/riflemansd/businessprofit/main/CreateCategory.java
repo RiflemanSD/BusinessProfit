@@ -5,6 +5,10 @@
  */
 package org.riflemansd.businessprofit.main;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import org.riflemansd.businessprofit2.Category;
+
 /**
  *
  * @author sotir
@@ -17,6 +21,8 @@ public class CreateCategory extends javax.swing.JFrame {
     public CreateCategory() {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -44,6 +50,11 @@ public class CreateCategory extends javax.swing.JFrame {
         });
 
         insertButton.setText("Insert");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Category Name: ");
 
@@ -96,6 +107,19 @@ public class CreateCategory extends javax.swing.JFrame {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String cat = this.categoryNameTF.getText();
+        
+        if (cat.isEmpty())  {
+            JOptionPane.showMessageDialog(rootPane, "Η κατηγορία δεν μπορεί να είναι κενή", "Αποτυχία", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        BusinessProfit.database.saveCategory(cat);
+        JOptionPane.showMessageDialog(rootPane, "Η κατηγορία προστέθηκε!", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
+        this.categoryNameTF.setText("");
+    }//GEN-LAST:event_insertButtonActionPerformed
 
     /**
      * @param args the command line arguments

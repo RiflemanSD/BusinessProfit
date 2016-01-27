@@ -4,6 +4,9 @@ package org.riflemansd.businessprofit.main;
 import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
 import org.riflemansd.businessprofit.MyItemListener;
+import org.riflemansd.businessprofit2.Category;
+import org.riflemansd.businessprofit2.IncomeCost;
+import org.riflemansd.businessprofit2.PackagesIncome;
 
 /**
  *
@@ -18,13 +21,12 @@ public class InsertForm extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
+        categorys = BusinessProfit.database.getCategorys().split("\n");
+        
         categoryJCB.removeAllItems();
-        categoryJCB.addItem("Κλειδιά");
-        categoryJCB.addItem("Δέματα");
-        categoryJCB.addItem("Παπούτσια");
-        categoryJCB.addItem("Δ2");
-        categoryJCB.addItem("Κά");
-        categoryJCB.addItem("Πaτσια");
+        for (String cat : categorys) {
+            categoryJCB.addItem(cat.split(",")[1]);
+        }
         categoryJCB.addItemListener(new MyItemListener(this));
         
         esodoeksodoJCB.removeAllItems();
@@ -33,14 +35,17 @@ public class InsertForm extends javax.swing.JFrame {
         
         
         centerPanel.setLayout(new FlowLayout(1));
-        centerPanel.add(new InsertPanel());
-        
-        InsertPanel p = (InsertPanel)centerPanel.getComponent(0);
-        
-        System.out.println(p.getPoso());
+        if (categoryJCB.getSelectedItem().equals("Δέματα")) {
+            centerPanel.add(new InsertPanelPackages());
+        }
+        else {
+            centerPanel.add(new InsertPanel());
+        }
         
         //revalidate();
         //repaint();
+        
+        this.setLocationRelativeTo(null);
     }
 
     public void setInsertPanel(String i) {
@@ -170,6 +175,7 @@ public class InsertForm extends javax.swing.JFrame {
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         
         String item = (String)categoryJCB.getSelectedItem();
+        Category cat = BusinessProfit.database.getCategory(item);
         int index = esodoeksodoJCB.getSelectedIndex();
         
         if (item.equals("Δέματα") && index == 0) {
@@ -180,25 +186,44 @@ public class InsertForm extends javax.swing.JFrame {
             int paralabes = p.getParalabes();
             
             if (paradoseis == -1 || paralabes == -1) {
-                JOptionPane.showMessageDialog(this, "Δεν είναι δυνατή η αποθήκευση!","Αποτυχεία",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Δεν είναι δυνατή η αποθήκευση!","Αποτυχία",JOptionPane.ERROR_MESSAGE);
             }
             else {
                 System.out.println(aitiologia + " " + paradoseis + " " + paralabes);
-                JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχεία",JOptionPane.INFORMATION_MESSAGE);
+                BusinessProfit.database.savePackIn(new PackagesIncome(0, cat, aitiologia, paradoseis, paralabes));
+                JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχία",JOptionPane.INFORMATION_MESSAGE);
             }
         }
         else {
-            InsertPanel p = (InsertPanel)centerPanel.getComponent(0);
-            
-            String aitiologia = p.getAitiologia();
-            double poso = p.getPoso();
-            
-            if (poso == -1) {
-                JOptionPane.showMessageDialog(this, "Δεν είναι δυνατή η αποθήκευση!","Αποτυχεία",JOptionPane.ERROR_MESSAGE);
+            if (index == 0) {
+                InsertPanel p = (InsertPanel)centerPanel.getComponent(0);
+
+                String aitiologia = p.getAitiologia();
+                double poso = p.getPoso();
+
+                if (poso == -1) {
+                    JOptionPane.showMessageDialog(this, "Δεν είναι δυνατή η αποθήκευση!","Αποτυχία",JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    System.out.println(aitiologia + " " + poso);
+                    BusinessProfit.database.saveIn(new IncomeCost(0, cat, aitiologia, poso));
+                    JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχία",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
-            else {
-                System.out.println(aitiologia + " " + poso);
-                JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχεία",JOptionPane.INFORMATION_MESSAGE);
+            else if (index == 1) {
+                InsertPanel p = (InsertPanel)centerPanel.getComponent(0);
+
+                String aitiologia = p.getAitiologia();
+                double poso = p.getPoso();
+
+                if (poso == -1) {
+                    JOptionPane.showMessageDialog(this, "Δεν είναι δυνατή η αποθήκευση!","Αποτυχία",JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    System.out.println(aitiologia + " " + poso);
+                    BusinessProfit.database.saveOut(new IncomeCost(0, cat, aitiologia, poso));
+                    JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχία",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_insertButtonActionPerformed

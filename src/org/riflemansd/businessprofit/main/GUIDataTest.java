@@ -6,6 +6,7 @@
 package org.riflemansd.businessprofit.main;
 
 import java.awt.BorderLayout;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import org.riflemansd.jxsortabletable.JXSortableTable;
@@ -23,8 +24,9 @@ public class GUIDataTest extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
-        JXSortableTable table = new JXSortableTable("ID,Name,Money", 0, "stirng", 1000);
+        JXSortableTable table = new JXSortableTable("ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές", 0, new Date(),"string","string",1.5,"s",1,1);
         table.addRow(0, "john", 1000);
+        table.packAll();
         
         tablePanel.setLayout(new BorderLayout());
         JScrollPane sc = new JScrollPane(table);
@@ -32,6 +34,8 @@ public class GUIDataTest extends javax.swing.JFrame {
         
         searchPanel.setLayout(new BorderLayout());
         searchPanel.add(new SearchPanel(), BorderLayout.CENTER);
+        
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -61,12 +65,14 @@ public class GUIDataTest extends javax.swing.JFrame {
         tablePanel.setLayout(tablePanelLayout);
         tablePanelLayout.setHorizontalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
+            .addGap(0, 402, Short.MAX_VALUE)
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 169, Short.MAX_VALUE)
+            .addGap(0, 202, Short.MAX_VALUE)
         );
+
+        getContentPane().add(tablePanel, java.awt.BorderLayout.CENTER);
 
         searchPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -80,6 +86,8 @@ public class GUIDataTest extends javax.swing.JFrame {
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 74, Short.MAX_VALUE)
         );
+
+        getContentPane().add(searchPanel, java.awt.BorderLayout.PAGE_START);
 
         jMenu1.setText("File");
 
@@ -98,27 +106,6 @@ public class GUIDataTest extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
