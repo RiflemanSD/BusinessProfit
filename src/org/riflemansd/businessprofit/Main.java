@@ -60,7 +60,7 @@ public class Main {
         
         InOutDB db = new InOutDB();
         
-        db.saveCategory(cat1);
+        /*db.saveCategory(cat1);
         db.saveCategory(cat2);
         db.saveCategory(cat3);
         db.saveCategory(cat4);
@@ -78,12 +78,17 @@ public class Main {
         db.saveIn(income11);
         db.saveIn(income12);
         db.saveIn(income31);
-        db.saveIn(income32);
+        db.saveIn(income32);*/
         
-        db.saveOut(pack);
+        db.savePackIn(pack);
         
+        System.out.println("Categorys");
+        System.out.println(db.getCategorys());
+        System.out.println("In");
         System.out.println(db.getIn());
+        System.out.println("Out");
         System.out.println(db.getOut());
+        System.out.println("Pack");
         System.out.println(db.getPackIn());
     }
     

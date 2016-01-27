@@ -5,12 +5,6 @@
  */
 package org.riflemansd.businessprofit.main;
 
-import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 /**
  *
  * @author sotir
@@ -25,22 +19,8 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
-        //insertForm = new InsertForm();
-        //guiDataTest = new GUIDataTest();
         
-//        insertForm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//        guiDataTest.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//        
-//        insertForm.addWindowListener(new WindowAdapter() {
-//            public void windowClosing(WindowEvent e) {
-//                insertForm.dispose();
-//            }
-//        });
-//        guiDataTest.addWindowListener(new WindowAdapter() {
-//            public void windowClosing(WindowEvent e) {
-//                guiDataTest.dispose();
-//            }
-//        });
+        
         
         initComponents();
     }
@@ -55,10 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        insertButton = new javax.swing.JButton();
+        createCategoryButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        previewButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -75,30 +55,30 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Insert Data:");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Insert...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        insertButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        insertButton.setText("Insert...");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                insertButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Create Cat...");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        createCategoryButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        createCategoryButton.setText("Create Cat...");
+        createCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                createCategoryButtonActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Create Category:");
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Preview...");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        previewButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        previewButton.setText("Preview...");
+        previewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                previewButtonActionPerformed(evt);
             }
         });
 
@@ -154,9 +134,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(insertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(previewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
@@ -165,15 +145,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(insertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(createCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(previewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -192,22 +172,22 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         //
         insertForm = new InsertForm();
         insertForm.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_insertButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void previewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewButtonActionPerformed
         //
         guiDataTest = new GUIDataTest();
         guiDataTest.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_previewButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void createCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCategoryButtonActionPerformed
         createCategoryPanel = new CreateCategory();
         createCategoryPanel.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_createCategoryButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,9 +225,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton createCategoryButton;
+    private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -259,5 +238,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton previewButton;
     // End of variables declaration//GEN-END:variables
 }
