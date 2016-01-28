@@ -21,6 +21,8 @@ public class InsertForm extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
+        
+        
         categorys = BusinessProfit.database.getCategorys().split("\n");
         
         categoryJCB.removeAllItems();
@@ -33,6 +35,7 @@ public class InsertForm extends javax.swing.JFrame {
         esodoeksodoJCB.addItem("Έσοδο");
         esodoeksodoJCB.addItem("Έξοδο");
         
+        esodoeksodoJCB.addItemListener(new MyItemListener(this));
         
         centerPanel.setLayout(new FlowLayout(1));
         if (categoryJCB.getSelectedItem().equals("Δέματα")) {
@@ -48,20 +51,18 @@ public class InsertForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public void setInsertPanel(String i) {
+    public void setInsertPanel() {
         centerPanel.removeAll();
         
-        if (i.equals("Δέματα")) {
+        if (categoryJCB.getSelectedItem().equals("Δέματα") && esodoeksodoJCB.getSelectedIndex() == 0) {
             centerPanel.add(new InsertPanelPackages());
         }
         else {
             centerPanel.add(new InsertPanel());
         }
         
-        
         revalidate();
         repaint();
-        
     }
     
     /** This method is called from within the constructor to
@@ -74,106 +75,102 @@ public class InsertForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        insertButton = new javax.swing.JButton();
+        centerPanel = new javax.swing.JPanel();
+        HeaderPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         categoryJCB = new javax.swing.JComboBox();
         esodoeksodoJCB = new javax.swing.JComboBox();
-        insertButton = new javax.swing.JButton();
-        centerPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        insertButton.setText("Εισαγωγή");
+        insertButton.setHideActionText(true);
+        insertButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        insertButton.setPreferredSize(new java.awt.Dimension(80, 100));
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(insertButton, java.awt.BorderLayout.PAGE_END);
+
+        centerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        centerPanel.setPreferredSize(new java.awt.Dimension(100, 100));
+        centerPanel.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(centerPanel, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Κατηγορία");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Έσοδο/Έξοδο");
 
         categoryJCB.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         categoryJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        esodoeksodoJCB.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        esodoeksodoJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Έσοδο", "Έξοδο" }));
-
-        insertButton.setText("Εισαγωγή");
-        insertButton.addActionListener(new java.awt.event.ActionListener() {
+        categoryJCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertButtonActionPerformed(evt);
+                categoryJCBActionPerformed(evt);
             }
         });
 
-        centerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        esodoeksodoJCB.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        esodoeksodoJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Έσοδο", "Έξοδο" }));
+        esodoeksodoJCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                esodoeksodoJCBActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout centerPanelLayout = new javax.swing.GroupLayout(centerPanel);
-        centerPanel.setLayout(centerPanelLayout);
-        centerPanelLayout.setHorizontalGroup(
-            centerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        centerPanelLayout.setVerticalGroup(
-            centerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 103, Short.MAX_VALUE)
-        );
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Κατηγορία");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout HeaderPanelLayout = new javax.swing.GroupLayout(HeaderPanel);
+        HeaderPanel.setLayout(HeaderPanelLayout);
+        HeaderPanelLayout.setHorizontalGroup(
+            HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HeaderPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(centerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(insertButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(esodoeksodoJCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(categoryJCB, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 88, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(esodoeksodoJCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(categoryJCB, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        HeaderPanelLayout.setVerticalGroup(
+            HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HeaderPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(categoryJCB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(esodoeksodoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(centerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(39, 39, 39)
-                .addComponent(insertButton, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
+
+        jPanel1.add(HeaderPanel, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
-        
         String item = (String)categoryJCB.getSelectedItem();
         Category cat = BusinessProfit.database.getCategory(item);
         int index = esodoeksodoJCB.getSelectedIndex();
@@ -190,7 +187,7 @@ public class InsertForm extends javax.swing.JFrame {
             }
             else {
                 System.out.println(aitiologia + " " + paradoseis + " " + paralabes);
-                BusinessProfit.database.savePackIn(new PackagesIncome(0, cat, aitiologia, paradoseis, paralabes));
+                BusinessProfit.database.savePackIn(new PackagesIncome(0, cat, aitiologia, paradoseis, paralabes), p.getDate());
                 JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχία",JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -206,7 +203,7 @@ public class InsertForm extends javax.swing.JFrame {
                 }
                 else {
                     System.out.println(aitiologia + " " + poso);
-                    BusinessProfit.database.saveIn(new IncomeCost(0, cat, aitiologia, poso));
+                    BusinessProfit.database.saveIn(new IncomeCost(0, cat, aitiologia, poso), p.getDate());
                     JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχία",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
@@ -221,12 +218,20 @@ public class InsertForm extends javax.swing.JFrame {
                 }
                 else {
                     System.out.println(aitiologia + " " + poso);
-                    BusinessProfit.database.saveOut(new IncomeCost(0, cat, aitiologia, poso));
+                    BusinessProfit.database.saveOut(new IncomeCost(0, cat, aitiologia, poso), p.getDate());
                     JOptionPane.showMessageDialog(this, "Τα δεδομένα αποθηκεύτηκαν!","Επιτυχία",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
     }//GEN-LAST:event_insertButtonActionPerformed
+
+    private void esodoeksodoJCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esodoeksodoJCBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_esodoeksodoJCBActionPerformed
+
+    private void categoryJCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryJCBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categoryJCBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,6 +269,7 @@ public class InsertForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel HeaderPanel;
     private javax.swing.JComboBox categoryJCB;
     private javax.swing.JPanel centerPanel;
     private javax.swing.JComboBox esodoeksodoJCB;

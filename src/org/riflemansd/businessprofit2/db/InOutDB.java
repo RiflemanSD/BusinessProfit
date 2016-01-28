@@ -60,7 +60,9 @@ public class InOutDB {
         return new Category(id, name);
     }
     
-    
+    public void saveOut(IncomeCost cost, Date date) {
+        manager.insert("cost", "catid,value,info,time", cost.getCategory().getId(), cost.getValue(), cost.getInfo(), this.dateToString(date));
+    }
     public void saveOut(IncomeCost cost) {
         manager.insert("cost", "catid,value,info,time", cost.getCategory().getId(), cost.getValue(), cost.getInfo(),currentTime());
     }
@@ -70,6 +72,9 @@ public class InOutDB {
         return result;
     }
     
+    public void saveIn(IncomeCost in, Date date) {
+        manager.insert("income", "catid,value,info,time", in.getCategory().getId(), in.getValue(), in.getInfo(), this.dateToString(date));
+    }
     public void saveIn(IncomeCost in) {
         manager.insert("income", "catid,value,info,time", in.getCategory().getId(), in.getValue(), in.getInfo(),currentTime());
     }
@@ -82,17 +87,43 @@ public class InOutDB {
     public void savePackIn(PackagesIncome pack) {
         manager.insert("packageincome", "catid,value,info,paradoseis,paralabes,time", pack.getCategory().getId(), pack.getValue(), pack.getInfo(), pack.getParadoseis(), pack.getParalabes(),currentTime());
     }
-    
+    public void savePackIn(PackagesIncome pack, Date date) {
+        manager.insert("packageincome", "catid,value,info,paradoseis,paralabes,time", pack.getCategory().getId(), pack.getValue(), pack.getInfo(), pack.getParadoseis(), pack.getParalabes(), this.dateToString(date));
+    }
     public String getPackIn() {
         String result = manager.select("packageincome", "*", "", 7);
         
         return result;
     }
     
+    public void delete(int tableId, int rowId) {
+        String table = null;
+        if (tableId == 0) {
+            table = "category";
+        }
+        else if (tableId == 1) {
+            table = "cost";
+        }
+        else if (tableId == 2) {
+            table = "income";
+        }
+        else if (tableId == 3) {
+            table = "packageincome";
+        }
+        
+        if (table != null) manager.delete(table, "id = " + rowId);
+    }
+    
     public String currentTime() {
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date today = Calendar.getInstance().getTime();        
         String reportDate = df.format(today);
+        
+        return reportDate;
+    }
+    public String dateToString(Date date) {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String reportDate = df.format(date);
         
         return reportDate;
     }

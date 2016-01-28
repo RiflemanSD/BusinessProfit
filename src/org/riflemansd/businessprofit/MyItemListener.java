@@ -29,7 +29,7 @@ public class MyItemListener implements ItemListener{
         System.out.println(i + " " + s);
         
         if (s == 1) {
-            this.f.setInsertPanel((String)i);
+            this.f.setInsertPanel();
         }
     }
 

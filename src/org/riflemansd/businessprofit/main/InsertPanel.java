@@ -1,6 +1,8 @@
 
 package org.riflemansd.businessprofit.main;
 
+import java.util.Date;
+
 /**
  *
  * @author rifleman
@@ -25,10 +27,14 @@ public class InsertPanel extends javax.swing.JPanel {
         aitiologiaTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         posoTextField = new javax.swing.JTextField();
+        datePicker = new org.riflemansd.businessprofit.panels.TimePickerPanel();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setText("Αιτιολογία");
 
         jLabel2.setText("Ποσό (€)");
+
+        jLabel3.setText("Ημερομηνία");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -38,13 +44,16 @@ public class InsertPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(aitiologiaTextField)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 97, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 89, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -58,7 +67,11 @@ public class InsertPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(datePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -66,7 +79,9 @@ public class InsertPanel extends javax.swing.JPanel {
     public String getAitiologia() {
         return this.aitiologiaTextField.getText();
     }
-    
+    public Date getDate() {
+        return datePicker.getValueDate();
+    }
     public double getPoso() {
         double value = -1;
         String sv = this.posoTextField.getText();
@@ -83,8 +98,10 @@ public class InsertPanel extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField aitiologiaTextField;
+    private org.riflemansd.businessprofit.panels.TimePickerPanel datePicker;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField posoTextField;
     // End of variables declaration//GEN-END:variables
 

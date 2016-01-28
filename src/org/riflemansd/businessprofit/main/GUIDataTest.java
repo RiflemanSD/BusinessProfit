@@ -6,9 +6,20 @@
 package org.riflemansd.businessprofit.main;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import org.riflemansd.businessprofit.panels.PreviewRow;
 import org.riflemansd.jxsortabletable.JXSortableTable;
 
 /**
@@ -19,14 +30,89 @@ public class GUIDataTest extends javax.swing.JFrame {
     private JXSortableTable table;
     private SearchPanel sPanel;
     private ResaultPanel resaultPanel;
+    private int currSelectedRow;
     /**
      * Creates new form GUIDataTest
      */
     public GUIDataTest() {
+        currSelectedRow = -1;
+        
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         table = new JXSortableTable("ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές", 0, new Date(),"string","string",1.5,"s",1,1);
+        
+        //table.setRowSelectionAllowed(true);
+        //table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int r = table.rowAtPoint(e.getPoint());
+                if (r >= 0 && r < table.getRowCount()) {
+                    table.setRowSelectionInterval(r, r);
+                } else {
+                    table.clearSelection();
+                }
+
+                currSelectedRow = table.getSelectedRow();
+                if (currSelectedRow < 0)
+                    return;
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+                    JPopupMenu popup = new JPopupMenu();
+                    
+                    JMenuItem previewItem = new JMenuItem("Preview");
+                    previewItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Object[] row = table.getRowAt(currSelectedRow);
+                            String[] datas = rowToString(row);
+                            
+                            PreviewRow pr = new PreviewRow(datas);
+                            
+                            pr.setLocationRelativeTo(null);
+                            pr.setVisible(true);
+                        }
+                    });
+                    popup.add(previewItem);
+                    
+                    JMenuItem deleteItem = new JMenuItem("Delete");
+                    deleteItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int a = JOptionPane.showConfirmDialog(rootPane, "Πρόκειται να διαγραφοόυν όλα τα δεδομένα της γραμμής\nΕίστε σίγουρος ότι θέλετε να διαγραφούν?", "Διαγραφή Δεδομένων",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                            if (a == 0) {
+                                Object[] row = table.getRowAt(currSelectedRow);
+                                
+                                int tid = -1;
+                                int id = Integer.parseInt((String)row[0]);
+                                String cat = (String) row[2];
+                                String inout = (String) row[3];
+                                
+                                if (cat.equals("Δέματα") && inout.equals("Έσοδο")) {
+                                    tid = 3;
+                                }
+                                else if (inout.equals("Έσοδο")) {
+                                    tid = 2;
+                                }
+                                else if (inout.equals("Έξοδο")) {
+                                    tid = 1;
+                                }
+                                
+                                BusinessProfit.database.delete(tid, id);
+                                
+                                defineData();
+                                JOptionPane.showMessageDialog(rootPane, "Τα δεδομένα της γραμμής διαγράφτηκαν", "Επιτυχία", JOptionPane.INFORMATION_MESSAGE);
+            
+                            }
+                        }
+                    });
+                    popup.add(deleteItem);
+                    
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
         
         table.getColumn(0).sizeWidthToFit();
         table.getColumn(3).sizeWidthToFit();
@@ -52,6 +138,35 @@ public class GUIDataTest extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
 
+    public String[] rowToString(Object[] objects) {
+        String[] datas = new String[8];
+        
+        datas[0] = (String)objects[0];
+        datas[1] = BusinessProfit.database.dateToString((Date)objects[1]);
+        datas[2] = (String)objects[2];
+        datas[3] = (String)objects[3];
+        datas[4] = "" + objects[4];
+        datas[5] = (String)objects[5];
+        datas[6] = "" + objects[6];
+        datas[7] = "" + objects[7];
+        
+        return datas;
+    }
+    public Object[] stringToRow(String[] objects) {
+        Object[] datas = new Object[8];
+        
+        datas[0] = Integer.parseInt(objects[0]);
+        datas[1] = BusinessProfit.database.getDate(objects[1]);
+        datas[2] = objects[2];
+        datas[3] = objects[3];
+        datas[4] = Double.parseDouble(objects[4]);
+        datas[5] = objects[5];
+        datas[6] = Integer.parseInt(objects[6]);
+        datas[7] = Integer.parseInt(objects[7]);
+        
+        return datas;
+    }
+    
     public void defineData() {
         double inValue = 0;
         double outValue = 0;
