@@ -18,6 +18,7 @@ import org.riflemansd.jxsortabletable.JXSortableTable;
 public class GUIDataTest extends javax.swing.JFrame {
     private JXSortableTable table;
     private SearchPanel sPanel;
+    private ResaultPanel resaultPanel;
     /**
      * Creates new form GUIDataTest
      */
@@ -41,25 +42,49 @@ public class GUIDataTest extends javax.swing.JFrame {
         sPanel = new SearchPanel(this);
         searchPanel.add(sPanel, BorderLayout.CENTER);
         
+        rPanel.setLayout(new BorderLayout());
+        resaultPanel = new ResaultPanel();
+        rPanel.add(resaultPanel, BorderLayout.CENTER);
+        
+        defineData();
+        
         this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
 
     public void defineData() {
-        table.removeAllRows();
+        double inValue = 0;
+        double outValue = 0;
+        
+        table.deleteAllRows();
         
         String[] in = BusinessProfit.database.getIn().split("\n");
         String[] out = BusinessProfit.database.getOut().split("\n");
         String[] packIn = BusinessProfit.database.getPackIn().split("\n");
         
         for (String i : in) {
-            table.addRow(this.inToTableRow(i));
-        }
-        for (String o : out) {
-            table.addRow(this.outToTableRow(o));
+            Object[] data = this.inToTableRow(i);
+            if (data != null) {
+                table.addRow(data);
+                inValue += (double)data[4];
+            }
         }
         for (String p : packIn) {
-            table.addRow(this.packInToTableRow(p));
+            Object[] data = this.packInToTableRow(p);
+            if (data != null) {
+                table.addRow(data);
+                inValue += (double)data[4];
+            }
         }
+        for (String o : out) {
+            Object[] data = this.outToTableRow(o);
+            if (data != null) {
+                table.addRow(data);
+                outValue += (double)data[4];
+            }
+        }
+        
+        resaultPanel.updateProfit(inValue, outValue);
     }
     
     private Object[] inToTableRow(String in) {
@@ -67,7 +92,6 @@ public class GUIDataTest extends javax.swing.JFrame {
         
         String cat = sPanel.getCategory();
         int index = sPanel.getInOut();
-        Date[] dates = sPanel.getDates();
         
         String[] ind = in.split(",");
         Object[] objects = new Object[6];
@@ -77,15 +101,7 @@ public class GUIDataTest extends javax.swing.JFrame {
         if (index != 0) if (index == 2)  return null;
         
         objects[1] = BusinessProfit.database.getDate(ind[4]);
-        
-        if (this.sPanel.isDateSearch()) {
-            if (dates[0].compareTo(dates[1]) == 0) {
-                if (dates[0].compareTo((Date)objects[1]) != 0) return null;
-            }
-            else {
-               if (!(((Date)objects[1]).before(dates[0]) && ((Date)objects[1]).after(dates[1]))) return null;
-            }
-        }
+        if (!checkDate((Date)objects[1])) return null;
         
         objects[0] = ind[0];
         objects[3] = "Έσοδο";
@@ -98,25 +114,17 @@ public class GUIDataTest extends javax.swing.JFrame {
         //"ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές"
         String cat = sPanel.getCategory();
         int index = sPanel.getInOut();
-        Date[] dates = sPanel.getDates();
         
         String[] ind = out.split(",");
         Object[] objects = new Object[6];
         
         objects[2] = BusinessProfit.database.getCategory(Integer.parseInt(ind[1])).getName();
         if (!cat.equals("Όλες")) if (!cat.equals((String)objects[2])) return null;
-        if (index != 0) if (index == 2)  return null;
+        if (index != 0) if (index == 1)  return null;
         
         objects[1] = BusinessProfit.database.getDate(ind[4]);
+        if (!checkDate((Date)objects[1])) return null;
         
-        if (this.sPanel.isDateSearch()) {
-            if (dates[0].compareTo(dates[1]) == 0) {
-                if (dates[0].compareTo((Date)objects[1]) != 0) return null;
-            }
-            else {
-               if (!(((Date)objects[1]).before(dates[0]) && ((Date)objects[1]).after(dates[1]))) return null;
-            }
-        }
         objects[0] = ind[0];
         objects[3] = "Έξοδο";
         objects[4] = Double.parseDouble(ind[2]);
@@ -129,7 +137,6 @@ public class GUIDataTest extends javax.swing.JFrame {
         //"ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές"
         String cat = sPanel.getCategory();
         int index = sPanel.getInOut();
-        Date[] dates = sPanel.getDates();
         
         String[] ind = packIn.split(",");
         Object[] objects = new Object[8];
@@ -138,16 +145,9 @@ public class GUIDataTest extends javax.swing.JFrame {
         if (!cat.equals("Όλες")) if (!cat.equals((String)objects[2])) return null;
         if (index != 0) if (index == 2)  return null;
         
-        objects[1] = BusinessProfit.database.getDate(ind[4]);
+        objects[1] = BusinessProfit.database.getDate(ind[6]);
         
-        if (this.sPanel.isDateSearch()) {
-            if (dates[0].compareTo(dates[1]) == 0) {
-                if (dates[0].compareTo((Date)objects[1]) != 0) return null;
-            }
-            else {
-               if (!(((Date)objects[1]).before(dates[0]) && ((Date)objects[1]).after(dates[1]))) return null;
-            }
-        }
+        if (!checkDate((Date)objects[1])) return null;
         
         objects[0] = ind[0];
         objects[3] = "Έσοδο";
@@ -158,6 +158,23 @@ public class GUIDataTest extends javax.swing.JFrame {
         
         return objects;
         
+    }
+    
+    private boolean checkDate(Date date) {
+        Date[] dates = sPanel.getDates();
+        
+        if (this.sPanel.isDateSearch()) {
+            if (dates[0].compareTo(dates[1]) == 0) {
+                if (dates[0].compareTo(date) != 0) return false;
+            }
+            else {
+               if (dates[0].compareTo(date) != 0 && dates[1].compareTo(date) != 0) {
+                if (!((date).after(dates[0]) && (date).before(dates[1]))) return false;
+               } 
+            }
+        }
+        
+        return true;
     }
     
     /**
@@ -189,6 +206,7 @@ public class GUIDataTest extends javax.swing.JFrame {
 
         tablePanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
+        rPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -205,11 +223,11 @@ public class GUIDataTest extends javax.swing.JFrame {
         tablePanel.setLayout(tablePanelLayout);
         tablePanelLayout.setHorizontalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 402, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
+            .addGap(0, 99, Short.MAX_VALUE)
         );
 
         getContentPane().add(tablePanel, java.awt.BorderLayout.CENTER);
@@ -228,6 +246,21 @@ public class GUIDataTest extends javax.swing.JFrame {
         );
 
         getContentPane().add(searchPanel, java.awt.BorderLayout.PAGE_START);
+
+        rPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout rPanelLayout = new javax.swing.GroupLayout(rPanel);
+        rPanel.setLayout(rPanelLayout);
+        rPanelLayout.setHorizontalGroup(
+            rPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 398, Short.MAX_VALUE)
+        );
+        rPanelLayout.setVerticalGroup(
+            rPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(rPanel, java.awt.BorderLayout.PAGE_END);
 
         jMenu1.setText("File");
 
@@ -295,6 +328,7 @@ public class GUIDataTest extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel rPanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel tablePanel;
     // End of variables declaration//GEN-END:variables

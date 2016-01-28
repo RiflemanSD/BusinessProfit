@@ -17,7 +17,10 @@ import java.util.logging.Logger;
  * @author RiflemanSD
  */
 public class OpenProjectFiles {
-
+/*
+java -Xmx2048M -Xms2048M -jar TableExamples.jar
+PAUSE
+*/
     public static void main(String[] args) {
         
         try {
