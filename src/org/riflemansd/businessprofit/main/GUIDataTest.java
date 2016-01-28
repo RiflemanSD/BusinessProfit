@@ -16,7 +16,8 @@ import org.riflemansd.jxsortabletable.JXSortableTable;
  * @author sotir
  */
 public class GUIDataTest extends javax.swing.JFrame {
-
+    private JXSortableTable table;
+    private SearchPanel sPanel;
     /**
      * Creates new form GUIDataTest
      */
@@ -24,20 +25,159 @@ public class GUIDataTest extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
-        JXSortableTable table = new JXSortableTable("ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές", 0, new Date(),"string","string",1.5,"s",1,1);
-        table.addRow(0, "john", 1000);
-        table.packAll();
+        table = new JXSortableTable("ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές", 0, new Date(),"string","string",1.5,"s",1,1);
+        
+        table.getColumn(0).sizeWidthToFit();
+        table.getColumn(3).sizeWidthToFit();
+        table.getColumn(4).sizeWidthToFit();
+        table.getColumn(6).sizeWidthToFit();
+        table.getColumn(7).sizeWidthToFit();
         
         tablePanel.setLayout(new BorderLayout());
         JScrollPane sc = new JScrollPane(table);
         tablePanel.add(sc, BorderLayout.CENTER);
         
         searchPanel.setLayout(new BorderLayout());
-        searchPanel.add(new SearchPanel(), BorderLayout.CENTER);
+        sPanel = new SearchPanel(this);
+        searchPanel.add(sPanel, BorderLayout.CENTER);
         
         this.setLocationRelativeTo(null);
     }
 
+    public void defineData() {
+        table.removeAllRows();
+        
+        String[] in = BusinessProfit.database.getIn().split("\n");
+        String[] out = BusinessProfit.database.getOut().split("\n");
+        String[] packIn = BusinessProfit.database.getPackIn().split("\n");
+        
+        for (String i : in) {
+            table.addRow(this.inToTableRow(i));
+        }
+        for (String o : out) {
+            table.addRow(this.outToTableRow(o));
+        }
+        for (String p : packIn) {
+            table.addRow(this.packInToTableRow(p));
+        }
+    }
+    
+    private Object[] inToTableRow(String in) {
+        //"ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές"
+        
+        String cat = sPanel.getCategory();
+        int index = sPanel.getInOut();
+        Date[] dates = sPanel.getDates();
+        
+        String[] ind = in.split(",");
+        Object[] objects = new Object[6];
+        
+        objects[2] = BusinessProfit.database.getCategory(Integer.parseInt(ind[1])).getName();
+        if (!cat.equals("Όλες")) if (!cat.equals((String)objects[2])) return null;
+        if (index != 0) if (index == 2)  return null;
+        
+        objects[1] = BusinessProfit.database.getDate(ind[4]);
+        
+        if (this.sPanel.isDateSearch()) {
+            if (dates[0].compareTo(dates[1]) == 0) {
+                if (dates[0].compareTo((Date)objects[1]) != 0) return null;
+            }
+            else {
+               if (!(((Date)objects[1]).before(dates[0]) && ((Date)objects[1]).after(dates[1]))) return null;
+            }
+        }
+        
+        objects[0] = ind[0];
+        objects[3] = "Έσοδο";
+        objects[4] = Double.parseDouble(ind[2]);
+        objects[5] = ind[3];
+        
+        return objects;
+    }
+    private Object[] outToTableRow(String out) {
+        //"ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές"
+        String cat = sPanel.getCategory();
+        int index = sPanel.getInOut();
+        Date[] dates = sPanel.getDates();
+        
+        String[] ind = out.split(",");
+        Object[] objects = new Object[6];
+        
+        objects[2] = BusinessProfit.database.getCategory(Integer.parseInt(ind[1])).getName();
+        if (!cat.equals("Όλες")) if (!cat.equals((String)objects[2])) return null;
+        if (index != 0) if (index == 2)  return null;
+        
+        objects[1] = BusinessProfit.database.getDate(ind[4]);
+        
+        if (this.sPanel.isDateSearch()) {
+            if (dates[0].compareTo(dates[1]) == 0) {
+                if (dates[0].compareTo((Date)objects[1]) != 0) return null;
+            }
+            else {
+               if (!(((Date)objects[1]).before(dates[0]) && ((Date)objects[1]).after(dates[1]))) return null;
+            }
+        }
+        objects[0] = ind[0];
+        objects[3] = "Έξοδο";
+        objects[4] = Double.parseDouble(ind[2]);
+        objects[5] = ind[3];
+        
+        return objects;
+        
+    }
+    private Object[] packInToTableRow(String packIn) {
+        //"ID,Ημερομηνία,Κατηγορία,Έσοδο/Έξοδο,Ποσό(€),Αιτιολογία,Παραδόσεις,Παραλαβές"
+        String cat = sPanel.getCategory();
+        int index = sPanel.getInOut();
+        Date[] dates = sPanel.getDates();
+        
+        String[] ind = packIn.split(",");
+        Object[] objects = new Object[8];
+        
+        objects[2] = BusinessProfit.database.getCategory(Integer.parseInt(ind[1])).getName();
+        if (!cat.equals("Όλες")) if (!cat.equals((String)objects[2])) return null;
+        if (index != 0) if (index == 2)  return null;
+        
+        objects[1] = BusinessProfit.database.getDate(ind[4]);
+        
+        if (this.sPanel.isDateSearch()) {
+            if (dates[0].compareTo(dates[1]) == 0) {
+                if (dates[0].compareTo((Date)objects[1]) != 0) return null;
+            }
+            else {
+               if (!(((Date)objects[1]).before(dates[0]) && ((Date)objects[1]).after(dates[1]))) return null;
+            }
+        }
+        
+        objects[0] = ind[0];
+        objects[3] = "Έσοδο";
+        objects[4] = Double.parseDouble(ind[2]);
+        objects[5] = ind[3];
+        objects[6] = Integer.parseInt(ind[4]);
+        objects[7] = Integer.parseInt(ind[5]);
+        
+        return objects;
+        
+    }
+    
+    /**
+     * 
+     * @param o1 - 27-1-2016
+     * @param o2 - 28-1-2016
+     * @return o2 &gt; o1 = -1, o2 &lt; o1 = 1, o2 == o1 = 0
+     */
+    private int compare(Date o1, Date o2) {
+        long n1 = o1.getTime();
+        long n2 = o2.getTime();
+        if (n1 < n2) {
+            return -1;
+        } else if (n1 > n2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

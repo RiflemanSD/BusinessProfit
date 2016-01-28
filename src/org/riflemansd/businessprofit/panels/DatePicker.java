@@ -14,16 +14,19 @@ import org.jdesktop.swingx.JXDatePicker;
  * @author sotir
  */
 public class DatePicker extends javax.swing.JPanel {
-
+    private JXDatePicker picker;
     /**
      * Creates new form DatePicker
      */
     public DatePicker() {
         initComponents();
         
-        this.add(new JXDatePicker(new Date()), BorderLayout.CENTER);
+        picker = new JXDatePicker(new Date());
+        this.add(picker, BorderLayout.CENTER);
     }
-
+    public Date getDate() {
+        return this.picker.getDate();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

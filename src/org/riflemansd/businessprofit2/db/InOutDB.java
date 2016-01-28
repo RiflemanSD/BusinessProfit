@@ -9,9 +9,13 @@ import org.riflemansd.businessprofit2.Category;
 import org.riflemansd.businessprofit2.IncomeCost;
 import org.riflemansd.businessprofit2.PackagesIncome;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,13 +46,20 @@ public class InOutDB {
         return result;
     }
     public Category getCategory(String catName) {
-        String result = manager.select("category", "id,name", "name = " + catName, 2);
+        String result = manager.select("category", "id,name", "name = '" + catName + "'", 2);
         
         int id = Integer.parseInt(result.split(",")[0]);
+        
+        return new Category(id, catName);
+    }
+    public Category getCategory(int id) {
+        String result = manager.select("category", "id,name", "id = " + id, 2);
+        
         String name = result.split(",")[1];
         
         return new Category(id, name);
     }
+    
     
     public void saveOut(IncomeCost cost) {
         manager.insert("cost", "catid,value,info,time", cost.getCategory().getId(), cost.getValue(), cost.getInfo(),currentTime());
@@ -84,6 +95,17 @@ public class InOutDB {
         String reportDate = df.format(today);
         
         return reportDate;
+    }
+    
+    public Date getDate(String sdate) {
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            return format.parse(sdate);
+        } catch (ParseException ex) {
+            Logger.getLogger(InOutDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return new Date();
     }
     
     public void close() {

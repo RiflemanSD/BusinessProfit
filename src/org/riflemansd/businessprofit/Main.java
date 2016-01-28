@@ -80,7 +80,7 @@ public class Main {
         db.saveIn(income31);
         db.saveIn(income32);*/
         
-        db.savePackIn(pack);
+        //db.savePackIn(pack);
         
         System.out.println("Categorys");
         System.out.println(db.getCategorys());
