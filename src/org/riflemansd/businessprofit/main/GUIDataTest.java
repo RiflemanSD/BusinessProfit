@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -19,6 +20,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import org.riflemansd.businessprofit.excel.MyExcelDocument;
+import org.riflemansd.businessprofit.excel.TestForMyExcelDocument;
 import org.riflemansd.businessprofit.panels.PreviewRow;
 import org.riflemansd.jxsortabletable.JXSortableTable;
 
@@ -323,10 +326,9 @@ public class GUIDataTest extends javax.swing.JFrame {
         searchPanel = new javax.swing.JPanel();
         rPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        FileMenu = new javax.swing.JMenu();
+        MenuItemSaveAsExcel = new javax.swing.JMenuItem();
+        MenuItemExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -377,18 +379,25 @@ public class GUIDataTest extends javax.swing.JFrame {
 
         getContentPane().add(rPanel, java.awt.BorderLayout.PAGE_END);
 
-        jMenu1.setText("File");
+        FileMenu.setText("File");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenu1.add(jMenuItem1);
+        MenuItemSaveAsExcel.setText("Save Excel...");
+        MenuItemSaveAsExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemSaveAsExcelActionPerformed(evt);
+            }
+        });
+        FileMenu.add(MenuItemSaveAsExcel);
 
-        jMenuItem2.setText("jMenuItem2");
-        jMenu1.add(jMenuItem2);
+        MenuItemExit.setText("Close Window");
+        MenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemExitActionPerformed(evt);
+            }
+        });
+        FileMenu.add(MenuItemExit);
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenu1.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(FileMenu);
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
@@ -397,6 +406,41 @@ public class GUIDataTest extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void MenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_MenuItemExitActionPerformed
+
+    private void MenuItemSaveAsExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemSaveAsExcelActionPerformed
+        int numberOfRows = this.table.getRowCount();
+        
+        MyExcelDocument doc = new MyExcelDocument("test.xlsx");
+        
+        for (int i = 0; i < numberOfRows; i++) {
+            Object[] datas = this.table.getRowAt(i);
+            
+            int j = 0;
+            for (Object o : datas) {
+                if (o instanceof Integer) {
+                    doc.setDouble(0, i, j, (int)o);
+                }
+                else if (o instanceof Number) {
+                    doc.setDouble(0, i, j, (double)o);
+                }
+                else if (o instanceof Date) {
+                    doc.setDate(0, i, j, (Date)o);
+                }
+                else {
+                    doc.setString(0, i, j, (String)o);
+                }
+                j++;
+            }
+        }
+        for (int i = 0; i < numberOfRows; i++) {
+            doc.autoFillColumhWidth(0, i);
+        }
+        doc.save();
+    }//GEN-LAST:event_MenuItemSaveAsExcelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,12 +481,11 @@ public class GUIDataTest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu FileMenu;
+    private javax.swing.JMenuItem MenuItemExit;
+    private javax.swing.JMenuItem MenuItemSaveAsExcel;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel rPanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel tablePanel;
