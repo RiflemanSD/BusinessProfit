@@ -20,9 +20,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import org.riflemansd.businessprofit.excel.MyExcelDocument;
 import org.riflemansd.businessprofit.excel.TestForMyExcelDocument;
 import org.riflemansd.businessprofit.panels.PreviewRow;
+import org.riflemansd.businessprofit.utils.autoupv.OpenProjectFiles;
 import org.riflemansd.jxsortabletable.JXSortableTable;
 
 /**
@@ -412,14 +414,23 @@ public class GUIDataTest extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemExitActionPerformed
 
     private void MenuItemSaveAsExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemSaveAsExcelActionPerformed
+        int numberOfColumns = this.table.getColumnCount();
         int numberOfRows = this.table.getRowCount();
+        String fileName = "test.xlsx";
         
-        MyExcelDocument doc = new MyExcelDocument("test.xlsx");
+        MyExcelDocument doc = new MyExcelDocument(fileName);
         
-        for (int i = 0; i < numberOfRows; i++) {
+        for (int i = 0; i < numberOfColumns; i++) {
+            String header = (String) table.getColumn(i).getHeaderValue();
+            
+            doc.setHeader(0, 0, i, header);
+        }
+        
+        for (int i = 1; i < numberOfRows; i++) {
             Object[] datas = this.table.getRowAt(i);
             
             int j = 0;
+            datas[0] = Integer.parseInt((String) datas[0]);
             for (Object o : datas) {
                 if (o instanceof Integer) {
                     doc.setDouble(0, i, j, (int)o);
@@ -439,7 +450,15 @@ public class GUIDataTest extends javax.swing.JFrame {
         for (int i = 0; i < numberOfRows; i++) {
             doc.autoFillColumhWidth(0, i);
         }
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                JOptionPane.showMessageDialog(rootPane, "Saving...");
+            }
+       });  
+        t1.start();
+        
         doc.save();
+        OpenProjectFiles.openFile(fileName);
     }//GEN-LAST:event_MenuItemSaveAsExcelActionPerformed
 
     /**

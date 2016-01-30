@@ -19,6 +19,8 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -84,11 +86,11 @@ public class MyExcelDocument {
         try {
             outfile = new FileOutputStream(file);
             workbook.write(outfile);
+            outfile.flush();
             outfile.close();
         } catch (IOException ex) {
             Logger.getLogger(MyExcelDocument.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public void autoFillColumhWidth(int nsheet, int ncolumn) {
@@ -168,6 +170,21 @@ public class MyExcelDocument {
 
     public void setDate(int nsheet, int nrow, int ncolumn, Date value) {
         org.apache.poi.ss.usermodel.Cell cell = getCell(nsheet, nrow, ncolumn);
+        CellStyle style = workbook.createCellStyle();
+        CreationHelper helper = workbook.getCreationHelper();
+        style.setDataFormat(helper.createDataFormat().getFormat("dd/mm/yyy"));
         cell.setCellValue(value);
+        cell.setCellStyle(style);
+    }
+    
+    public void setHeader(int nsheet, int nrow, int ncolumn, String value) {
+        org.apache.poi.ss.usermodel.Cell cell = getCell(nsheet, nrow, ncolumn);
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        font.setFontHeightInPoints((short)12);
+        style.setFont(font);
+        cell.setCellValue(value);
+        cell.setCellStyle(style);
     }
 }

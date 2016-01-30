@@ -31,4 +31,12 @@ PAUSE
         
         System.out.println("End...");
     }
+    
+    public static void openFile(String fileName) {
+        try {
+            Desktop.getDesktop().open(new File(fileName));
+        } catch (IOException ex) {
+            Logger.getLogger(OpenProjectFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
