@@ -1,6 +1,7 @@
-﻿License for BusinessProfit project
+﻿The {class} is part of BusinessProfit.
 
-BusinessProfit cannot be copied/distributed without 
+The BusinessProfit's classes and any part of the code 
+cannot be copied/distributed without 
 the permission of Sotiris Doudis
 
 Github - RiflemanSD - https://github.com/RiflemanSD

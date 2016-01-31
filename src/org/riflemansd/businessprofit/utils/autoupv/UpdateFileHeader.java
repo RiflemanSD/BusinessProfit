@@ -67,7 +67,7 @@ public class UpdateFileHeader {
     public static void main(String[] args) {
         File file = new File("src\\org\\riflemansd\\businessprofit\\utils\\autoupv\\FileManager2.java");
 
-        UpdateFileHeader up = new UpdateFileHeader(file.getName(), getDate(file.lastModified()), "RiflemanSD", "RiflemanSD", "1.0.0");
+        UpdateFileHeader up = new UpdateFileHeader(file.getName(), getDate(file.lastModified()), "https://github.com/RiflemanSD", "RiflemanSD", "1.1.2");
 
         up.updateFileHeader(new FileManager(file));
 
@@ -118,6 +118,7 @@ public class UpdateFileHeader {
         boolean clh = false;
         boolean stop = false;
         boolean stop2 = false;
+        boolean lic2 = false;
         for (String line1 : linesFile) {
             if (line1.contains("~~")) {
                 lic = true;
@@ -126,7 +127,7 @@ public class UpdateFileHeader {
             if (line1.contains("package")) {
                 stop = true;
                 if (!lic) {
-                    file1.writeLine("/* ~~ " + linesLicense.get(0) + " ~~");
+                    file1.writeLine("/* ~~ " + linesLicense.get(0).replace("{class}", this.className.replace(".java", "")) + " ~~");
                     for (int i = 1; i < linesLicense.size(); i++) {
                         System.out.println(linesLicense.get(i));
                         file1.writeLine(" * " + linesLicense.get(i));
@@ -142,6 +143,9 @@ public class UpdateFileHeader {
                 }
                 file1.writeLine(line1);
             }
+            if (!lic2 && lic && line1.contains("*") && !stop2) {
+                file1.writeLine(line1); if (line1.contains("*/")) lic2 = true;
+            }
             if (line1.contains("import")) {
                 file1.writeLine(line1);
             } else {
@@ -149,21 +153,37 @@ public class UpdateFileHeader {
                     if (line1.contains("<h1>")) {
                         clh = true;
                         stop2 = true;
+                        file1.writeLine(" ");
                     }
                     if (!info && line1.contains("public")) {
-                        file1.writeLine(" ");
                         info = true;
                         stop2 = true;
                         if (!clh) {
-                            file1.writeLine("/** " + linesClassLicense.get(0));
+                            file1.writeLine("\n/** <h1>" + linesClassLicense.get(0).replace("{class}", this.className.replace(".java", "")) + "</h1>");
                             for (int i = 1; i < linesClassLicense.size(); i++) {
-                                System.out.println(linesClassLicense.get(i));
-                                file1.writeLine(" * " + linesClassLicense.get(i));
+                                String line = linesClassLicense.get(i);
+                                
+                                if (!line.isEmpty() && !line.startsWith("@")) {
+                                    if (line.contains("{author}")) line = line.replace("{author}", "<a href="+this.author+">"+this.author_name+"</a>");
+                                    if (line.contains("{class_info}")) line = line.replace("{class_info}", "");
+                                    if (line.contains("{last_update}")) line = line.replace("{last_update}", this.last_update);
+                                    
+                                    line = "<p>" + line + "</p>";
+                                }
+                                if (line.startsWith("@")) {
+                                    if (line.contains("{author_name}")) line = line.replace("{author_name}", this.author_name);
+                                    if (line.contains("{version}")) line = line.replace("{version}", this.version);
+                                }
+                                
+                                System.out.println(line);
+                                file1.writeLine(" * " + line);
                             }
                             file1.writeLine(" */");
                         }
                     }
                     if (stop2) {
+                        if (line1.contains("@version")) line1 = " * " + line1.split(" ")[2] + " " +this.version;
+
                         file1.writeLine(line1);
                     }
                 }

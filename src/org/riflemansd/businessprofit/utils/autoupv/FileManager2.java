@@ -1,6 +1,7 @@
-/* ~~ ﻿License for BusinessProfit project ~~
+/* ~~ ﻿The FileManager2 is part of BusinessProfit. ~~
  * 
- * BusinessProfit cannot be copied/distributed without 
+ * The BusinessProfit's classes and any part of the code 
+ * cannot be copied/distributed without 
  * the permission of Sotiris Doudis
  * 
  * Github - RiflemanSD - https://github.com/RiflemanSD
@@ -53,22 +54,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
-/** ﻿{class}
- * The {class} is part of BusinessProfit.
+/** <h1>﻿FileManager2</h1>
  * 
- * The BusinessProfit's classes and any part of the code 
- * cannot be copied/distributed without 
- * the permission of Sotiris Doudis
+ * <p>Heelo</p>
  * 
- * Last Update: {last_update}
- * Author: {author}
+ * <p>Last Update: 01/02/2016</p>
+ * <p>Author: <a href=https://github.com/RiflemanSD>RiflemanSD</a></p>
  * 
- * Copyright © 2016 Sotiris Doudis | All rights reserved
+ * <p>Copyright © 2016 Sotiris Doudis | All rights reserved</p>
  * 
- * @version {version}
- * @author {author_name}
+ * @version 1.1.2
+ * @author RiflemanSD
  */
 public class FileManager2 {
+    
     private File file;
     private BufferedReader reader;
     private BufferedWriter writer;

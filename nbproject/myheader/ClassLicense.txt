@@ -1,9 +1,6 @@
 ﻿{class}
-The {class} is part of BusinessProfit.
 
-The BusinessProfit's classes and any part of the code 
-cannot be copied/distributed without 
-the permission of Sotiris Doudis
+{class_info}
 
 Last Update: {last_update}
 Author: {author}
