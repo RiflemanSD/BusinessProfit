@@ -1,14 +1,19 @@
-License for BusinessProfit
+﻿License for BusinessProfit project
 
-This file is part of BusinessProfit.
+BusinessProfit cannot be copied/distributed without 
+the permission of Sotiris Doudis
 
-BusinessProfit can not be copied and/or distributed without the express
-permission of Sotiris Doudis
+Github - RiflemanSD - https://github.com/RiflemanSD
 
 Copyright © 2016 Sotiris Doudis | All rights reserved
 
-27-1-2016 Sotiris Doudis sotirisdoudis@gmail.com
-RiflemanSD - github - riflemansd@gmail.com
+License for BusinessProfit project - in GREEK language
 
-@author
-@version
+Οποιοσδήποτε μπορεί να χρησιμοποιήσει το πρόγραμμα για προσωπική του χρήση. 
+Αλλά απαγoρεύεται η πώληση ή διακίνηση του προγράμματος σε τρίτους.
+
+Aπαγορεύεται η αντιγραφή ή διακίνηση οποιοδήποτε μέρος του κώδικα χωρίς 
+την άδεια του δημιουργού. 
+Σε περίπτωση που θέλετε να χρεισημοποιήσετε κάποια κλάση ή μέρος του κώδικα.
+Πρέπει να συμπεριλάβεται στο header της κλάσης τον δημιουργό και link στην
+αυθεντική κλάση (στο github).

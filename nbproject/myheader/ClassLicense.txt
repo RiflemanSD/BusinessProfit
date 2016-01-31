@@ -1,0 +1,14 @@
+﻿{class}
+The {class} is part of BusinessProfit.
+
+The BusinessProfit's classes and any part of the code 
+cannot be copied/distributed without 
+the permission of Sotiris Doudis
+
+Last Update: {last_update}
+Author: {author}
+
+Copyright © 2016 Sotiris Doudis | All rights reserved
+
+@version {version}
+@author {author_name}
