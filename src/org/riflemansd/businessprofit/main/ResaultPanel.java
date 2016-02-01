@@ -44,6 +44,8 @@
 package org.riflemansd.businessprofit.main;
 
 import java.awt.Color;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 
 /** <h1>﻿ResaultPanel</h1>
@@ -72,12 +74,24 @@ public class ResaultPanel extends javax.swing.JPanel {
     public void updateProfit(double income, double costs) {
         double profit = income - costs;
         
+        profit = round(profit, 3);
+        income = round(income, 3);
+        costs = round(costs, 3);
+        
         if (profit <= 0) {
             this.calcLabel.setText("<html>   <font color='blue'>"+income+"</font> + <font color='orange'>"+costs+"</font> = <font color='red'>"+profit+"</font> €</html>");
         }
         else {
             this.calcLabel.setText("<html>   <font color='blue'>"+income+"</font> + <font color='orange'>"+costs+"</font> = <font color='#00FF00'>"+profit+"</font> €</html>");
         }
+    }
+    
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
     
     /**

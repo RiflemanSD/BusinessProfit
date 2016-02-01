@@ -221,13 +221,15 @@ public class GUIDataTest extends javax.swing.JFrame {
         double inValue = 0;
         double outValue = 0;
 
-        table.deleteAllRows();
+        //table.deleteAllRows();
+        table.removeAllRows();
         String[] in = BusinessProfit.database.getIn().split("\n");
         String[] out = BusinessProfit.database.getOut().split("\n");
         String[] packIn = BusinessProfit.database.getPackIn().split("\n");
         
         try {
             for (String i : in) {
+                //System.out.println(i);
                 Object[] data = this.inToTableRow(i);
                 if (data != null) {
                     table.addRow(data);
@@ -262,6 +264,8 @@ public class GUIDataTest extends javax.swing.JFrame {
         catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        
+        table.sort();
 
         resaultPanel.updateProfit(inValue, outValue);
     }

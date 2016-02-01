@@ -158,7 +158,7 @@ public class InsertPanel extends javax.swing.JPanel {
         poso = value;
     }
     public double getPoso() {
-        if (poso == -1) setPoso();
+        setPoso();
         return poso;
     }
     
