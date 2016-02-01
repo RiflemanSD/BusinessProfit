@@ -1,10 +1,10 @@
 # BusinessProfit
 
-## Beta Version 1.0.7 | 1-2-2016
+## Beta Version 1.0.8 | 1-2-2016
 
 A java project, that provide a GUI with SQLite database to determinate a business economic profit.
 
-You can download the project from here http://www.mediafire.com/download/enyhsfglejlpvd9/BusinessProfit+1.0.7b.jar
+You can download the project from here http://www.mediafire.com/download/wzef872rxwpf4a8/BusinessProfit+1.0.8b.jar
 
 ###License for BusinessProfit project
 
