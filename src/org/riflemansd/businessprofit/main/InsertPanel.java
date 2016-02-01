@@ -168,7 +168,7 @@ public class InsertPanel extends javax.swing.JPanel {
         
         if (value == -1) return -1;
         
-        poso = value - value*fpa;
+        //poso = value - value*fpa;
         return value*fpa;
     }
     

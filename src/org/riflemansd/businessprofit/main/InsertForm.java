@@ -261,7 +261,7 @@ public class InsertForm extends javax.swing.JFrame {
                             BusinessProfit.database.saveCategory(fpaCat);
                         }
                         poso = p.getPoso();
-                        BusinessProfit.database.saveOut(new IncomeCost(0, fpaCat, aitiologia, poso), p.getDate());
+                        BusinessProfit.database.saveOut(new IncomeCost(0, fpaCat, aitiologia, fpa), p.getDate());
                     }
                     System.out.println(aitiologia + " " + poso);
                     BusinessProfit.database.saveIn(new IncomeCost(0, cat, aitiologia, poso), p.getDate());
