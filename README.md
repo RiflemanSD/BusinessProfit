@@ -4,7 +4,7 @@
 
 A java project, that provide a GUI with SQLite database to determinate a business economic profit.
 
-You can download the project from here http://www.mediafire.com/download/9hln9q1cm1gen1l/BusinessProfit+v1.0b.jar
+You can download the project from here http://www.mediafire.com/download/enyhsfglejlpvd9/BusinessProfit+1.0.7b.jar
 
 ###License for BusinessProfit project
 
