@@ -105,6 +105,19 @@ public class FileManager {
         
         return list;
     }
+    public String readFileAsString() {
+        String file = "";
+        String line = "";
+        try {
+            while ((line = reader.readLine()) != null) {
+                file += line + "\n";
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return file;
+    }
     
     public void writeLine(String line) {
         try {

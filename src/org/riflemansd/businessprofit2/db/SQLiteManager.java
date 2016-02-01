@@ -12,8 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 
-/**
- * <h1>SQLite database</h1>
+/** <h1>SQLite database</h1>
  * <p>This class use sqlite-jdbc library to
  * haddle a SQLite database</p>
  * 
