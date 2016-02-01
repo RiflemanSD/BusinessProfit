@@ -29,9 +29,13 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="datePicker" min="-2" max="-2" attributes="0"/>
-                          <Component id="posoTextField" min="-2" pref="87" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="posoTextField" min="-2" pref="87" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="fpaCheckBox" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -49,9 +53,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="posoTextField" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="posoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fpaCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="7" max="32767" attributes="0"/>
+              <EmptySpace pref="6" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="datePicker" max="32767" attributes="0"/>
                   <Component id="jLabel3" max="32767" attributes="0"/>
@@ -81,6 +88,11 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x397;&#x3bc;&#x3b5;&#x3c1;&#x3bf;&#x3bc;&#x3b7;&#x3bd;&#x3af;&#x3b1;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="fpaCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x3a6;&#x3a0;&#x391;"/>
       </Properties>
     </Component>
   </SubComponents>

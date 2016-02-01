@@ -1,17 +1,71 @@
-
+/* ~~ ﻿The InsertPanel is part of BusinessProfit. ~~
+ * 
+ * The BusinessProfit's classes and any part of the code 
+ * cannot be copied/distributed without 
+ * the permission of Sotiris Doudis
+ * 
+ * Github - RiflemanSD - https://github.com/RiflemanSD
+ * 
+ * Copyright © 2016 Sotiris Doudis | All rights reserved
+ * 
+ * License for BusinessProfit project - in GREEK language
+ * 
+ * Οποιοσδήποτε μπορεί να χρησιμοποιήσει το πρόγραμμα για προσωπική του χρήση. 
+ * Αλλά απαγoρεύεται η πώληση ή διακίνηση του προγράμματος σε τρίτους.
+ * 
+ * Aπαγορεύεται η αντιγραφή ή διακίνηση οποιοδήποτε μέρος του κώδικα χωρίς 
+ * την άδεια του δημιουργού. 
+ * Σε περίπτωση που θέλετε να χρεισημοποιήσετε κάποια κλάση ή μέρος του κώδικα.
+ * Πρέπει να συμπεριλάβεται στο header της κλάσης τον δημιουργό και link στην
+ * αυθεντική κλάση (στο github).
+ * 
+ * ~~ ﻿Information about BusinessProfit project - in GREEK language ~~
+ *  
+ * Το BusinessProfit είναι ένα project για την αποθήκευση και επεξεργασία
+ * των εσόδων/εξόδων μίας επιχείρησης με σκοπό να μπορεί ο επιχειρηματίας να καθορήσει 
+ * το καθαρό κέρδος της επιχείρησης. Καθώς και να κρατάει κάποια σημαντικά
+ * στατιστικά στοιχεία για τον όγκο της εργασίας κτλ..
+ *  
+ * Το project δημιουργήθηκε από τον Σωτήρη Δούδη. Φοιτητή πληροφορικής του Α.Π.Θ
+ * για προσωπική χρήση. Αλλά και για όποιον άλλον πιθανόν το χρειαστεί.
+ * 
+ * Το project προγραμματίστηκε σε Java (https://www.java.com/en/download/).
+ * Με χρήση του NetBeans IDE (https://netbeans.org/)
+ * Για να το τρέξετε πρέπει να έχετε εγκαταστήσει την java.
+ *  
+ * Ο καθένας μπορεί δωρεάν να χρησιμοποιήσει το project αυτό. Αλλά δεν επιτρέπεται
+ * η αντιγραφή/διακήνηση του κώδικα, χωρίς την άδεια του Δημιουργού (Δείτε την License).
+ * 
+ * Github - https://github.com/RiflemanSD/BusinessProfit
+ * 
+ * 
+ * Copyright © 2016 Sotiris Doudis | All rights reserved
+ */
 package org.riflemansd.businessprofit.main;
 
 import java.util.Date;
 
-/**
- *
- * @author rifleman
+/** <h1>﻿InsertPanel</h1>
+ * 
+ * <p></p>
+ * 
+ * <p>Last Update: 01/02/2016</p>
+ * <p>Author: <a href=https://github.com/RiflemanSD>RiflemanSD</a></p>
+ * 
+ * <p>Copyright © 2016 Sotiris Doudis | All rights reserved</p>
+ * 
+ * @version 1.0.7
+ * @author RiflemanSD
  */
 public class InsertPanel extends javax.swing.JPanel {
-
+    private double fpa;
+    private double poso;
+    
     /** Creates new form InsertPanel */
     public InsertPanel() {
         initComponents();
+        poso = -1;
+        fpa = 0.23;
     }
 
     /** This method is called from within the constructor to
@@ -29,12 +83,15 @@ public class InsertPanel extends javax.swing.JPanel {
         posoTextField = new javax.swing.JTextField();
         datePicker = new org.riflemansd.businessprofit.panels.TimePickerPanel();
         jLabel3 = new javax.swing.JLabel();
+        fpaCheckBox = new javax.swing.JCheckBox();
 
         jLabel1.setText("Αιτιολογία");
 
         jLabel2.setText("Ποσό (€)");
 
         jLabel3.setText("Ημερομηνία");
+
+        fpaCheckBox.setText("ΦΠΑ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -52,8 +109,11 @@ public class InsertPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 89, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fpaCheckBox)))
+                        .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -66,8 +126,10 @@ public class InsertPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(posoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fpaCheckBox)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(datePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -82,7 +144,7 @@ public class InsertPanel extends javax.swing.JPanel {
     public Date getDate() {
         return datePicker.getValueDate();
     }
-    public double getPoso() {
+    private void setPoso() {
         double value = -1;
         String sv = this.posoTextField.getText();
         
@@ -93,12 +155,27 @@ public class InsertPanel extends javax.swing.JPanel {
             System.out.println("Error: " + e.getMessage());
         }
         
-        return value;
+        poso = value;
+    }
+    public double getPoso() {
+        if (poso == -1) setPoso();
+        return poso;
+    }
+    
+    public double fpaCount() {
+        if (!fpaCheckBox.isSelected()) return -1;
+        double value = getPoso();
+        
+        if (value == -1) return -1;
+        
+        poso = value - value*fpa;
+        return value*fpa;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField aitiologiaTextField;
     private org.riflemansd.businessprofit.panels.TimePickerPanel datePicker;
+    private javax.swing.JCheckBox fpaCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -63,7 +63,7 @@ import java.util.logging.Logger;
  * 
  * <p>Copyright © 2016 Sotiris Doudis | All rights reserved</p>
  * 
- * @version 1.0.6
+ * @version 1.0.7
  * @author RiflemanSD
  */
 public class FileManager2 {
@@ -181,4 +181,3 @@ public class FileManager2 {
         }
     }
 }
-
