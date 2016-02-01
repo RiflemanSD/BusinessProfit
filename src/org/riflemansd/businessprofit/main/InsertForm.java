@@ -73,7 +73,6 @@ public class InsertForm extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         categorys = BusinessProfit.database.getCategorys().split("\n");
-        
         categoryJCB.removeAllItems();
         for (String cat : categorys) {
             categoryJCB.addItem(cat.split(",")[1]);

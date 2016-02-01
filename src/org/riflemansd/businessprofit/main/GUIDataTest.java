@@ -222,31 +222,45 @@ public class GUIDataTest extends javax.swing.JFrame {
         double outValue = 0;
 
         table.deleteAllRows();
-
         String[] in = BusinessProfit.database.getIn().split("\n");
         String[] out = BusinessProfit.database.getOut().split("\n");
         String[] packIn = BusinessProfit.database.getPackIn().split("\n");
-
-        for (String i : in) {
-            Object[] data = this.inToTableRow(i);
-            if (data != null) {
-                table.addRow(data);
-                inValue += (double) data[4];
+        
+        try {
+            for (String i : in) {
+                Object[] data = this.inToTableRow(i);
+                if (data != null) {
+                    table.addRow(data);
+                    inValue += (double) data[4];
+                }
             }
         }
-        for (String p : packIn) {
-            Object[] data = this.packInToTableRow(p);
-            if (data != null) {
-                table.addRow(data);
-                inValue += (double) data[4];
+        catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        try {
+            for (String p : packIn) {
+                Object[] data = this.packInToTableRow(p);
+                if (data != null) {
+                    table.addRow(data);
+                    inValue += (double) data[4];
+                }
             }
         }
-        for (String o : out) {
-            Object[] data = this.outToTableRow(o);
-            if (data != null) {
-                table.addRow(data);
-                outValue += (double) data[4];
+        catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        try {
+            for (String o : out) {
+                Object[] data = this.outToTableRow(o);
+                if (data != null) {
+                    table.addRow(data);
+                    outValue += (double) data[4];
+                }
             }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e);
         }
 
         resaultPanel.updateProfit(inValue, outValue);

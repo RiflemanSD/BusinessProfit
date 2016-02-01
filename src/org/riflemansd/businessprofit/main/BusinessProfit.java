@@ -68,6 +68,16 @@ public class BusinessProfit {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
+        
+        if (BusinessProfit.database.getCategorys().isEmpty())  {
+            init();
+        }
+    }
+    
+    private void init() {
+        BusinessProfit.database.saveCategory("Δέματα");
+        BusinessProfit.database.saveCategory("Κλειδιά");
+        BusinessProfit.database.saveCategory("Παπούτσια");
     }
     
     public static void main(String[] args) {
