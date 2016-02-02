@@ -43,6 +43,9 @@
  */
 package org.riflemansd.businessprofit.main;
 
+import org.riflemansd.businessprofit.panels.PackagesSettings;
+import org.riflemansd.businessprofit.panels.SettingsForm;
+
 /** <h1>﻿MainFrame</h1>
  * 
  * <p></p>
@@ -92,6 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -138,6 +142,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5.setText("Github: RiflemanSD -");
 
         jMenu1.setText("File");
+
+        jMenuItem2.setText("Settings");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -235,6 +247,11 @@ public class MainFrame extends javax.swing.JFrame {
         createCategoryPanel.setVisible(true);
     }//GEN-LAST:event_createCategoryButtonActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        SettingsForm settings = new SettingsForm();
+        settings.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -283,6 +300,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton previewButton;
     // End of variables declaration//GEN-END:variables

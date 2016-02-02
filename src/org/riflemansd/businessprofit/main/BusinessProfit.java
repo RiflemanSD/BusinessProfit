@@ -59,7 +59,7 @@ import org.riflemansd.businessprofit2.db.InOutDB;
  * @author RiflemanSD
  */
 public class BusinessProfit {
-    static InOutDB database;
+    public static InOutDB database;
     
     public BusinessProfit() {
         database = new InOutDB();
@@ -72,6 +72,18 @@ public class BusinessProfit {
         if (BusinessProfit.database.getCategorys().isEmpty())  {
             init();
         }
+        
+        setDefaultPackageSettings();
+    }
+    
+    private void setDefaultPackageSettings() {
+        String par = BusinessProfit.database.getSetting("par");
+        String pal = BusinessProfit.database.getSetting("pal");
+        String diff = BusinessProfit.database.getSetting("diff");
+        
+        if (par == null) BusinessProfit.database.saveSetting("par", "0.9");
+        if (pal == null) BusinessProfit.database.saveSetting("pal", "1.5");
+        if (diff == null) BusinessProfit.database.saveSetting("diff", "1.0");
     }
     
     private void init() {

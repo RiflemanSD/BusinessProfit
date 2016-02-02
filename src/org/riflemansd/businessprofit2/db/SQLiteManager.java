@@ -419,6 +419,8 @@ public class SQLiteManager {
      * @return 0 if no error, &lt; 0 otherwise
      */
     public int update(String tableName, String set, String where) {
+        System.out.println(set);
+        System.out.println(where);
         tableName = this.validTable(tableName);
         String update =  "UPDATE " + tableName + " SET " + set + " where " + where + ";";
         

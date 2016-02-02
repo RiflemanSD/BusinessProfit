@@ -79,6 +79,25 @@ public class InOutDB {
         manager.createTable("income", "id,catid,value,info,time", 1, 1, 1.0, "null", "time");
         manager.createTable("packageincome", "id,catid,value,info,paradoseis,paralabes,time", 1, 1, 1.0, "null", 1, 1, "time");
         
+        //Settings
+        manager.createTable("settings", "id,name,value", 1, "s", "s");
+    }
+    
+    public void saveSetting(String name, String value) {
+        manager.insert("settings", "name,value", name, value);
+    }
+    public void updateSetting(String name, String value) {
+        System.out.println(value);
+        manager.update("settings", "value = '" + value + "'", "name = '" + name + "'");
+    }
+    
+    public String getSetting(String name) {
+        String result = manager.select("settings", "value", "name = '" + name + "'", 1);
+        if (result.isEmpty()) return null;
+        
+        //System.out.println(result.replace("\n", ""));
+        
+        return result.replace("\n", "").replace(" ", "");
     }
     
     public void saveCategory(Category cat) {

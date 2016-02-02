@@ -43,6 +43,8 @@
  */
 package org.riflemansd.businessprofit2;
 
+import org.riflemansd.businessprofit.main.BusinessProfit;
+
 /** <h1>﻿PackagesIncome</h1>
  * 
  * <p></p>
@@ -66,9 +68,9 @@ public class PackagesIncome extends IncomeCost {
     public PackagesIncome(int id, Category category, String info, int par, int pal) {
         super(id, category, info);
         
-        this.moneyPerParadosi = 0.4;
-        this.moneyPerParalabi = 1.5;
-        this.moneyFromDiff = 0.5;
+        this.moneyPerParadosi = Double.parseDouble(BusinessProfit.database.getSetting("par"));
+        this.moneyPerParalabi = Double.parseDouble(BusinessProfit.database.getSetting("pal"));
+        this.moneyFromDiff = Double.parseDouble(BusinessProfit.database.getSetting("diff"));
         
         this.paradoseis = par;
         this.paralabes = pal;
@@ -78,6 +80,10 @@ public class PackagesIncome extends IncomeCost {
     
     private void calc() {
         double v = 0;
+        
+        System.out.println(moneyPerParadosi);
+        System.out.println(moneyPerParalabi);
+        System.out.println(moneyFromDiff);
         
         v = paradoseis*moneyPerParadosi + paralabes*moneyPerParalabi;
         
